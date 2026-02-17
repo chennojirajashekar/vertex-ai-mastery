@@ -1,0 +1,247 @@
+# Vertex AI Fundamentals Configuration
+# This file contains configuration settings for all examples and scripts
+
+# Google Cloud Project Settings
+project:
+  # Replace with your GCP Project ID
+  project_id: "your-project-id"
+  # Default region for Vertex AI resources
+  location: "us-central1"
+  # Alternative regions
+  regions:
+    us: "us-central1"
+    europe: "europe-west4"
+    asia: "asia-northeast1"
+
+# Vertex AI Service Settings
+vertex_ai:
+  # API endpoint (usually auto-configured)
+  api_endpoint: "aiplatform.googleapis.com"
+  # Staging bucket for artifacts
+  staging_bucket: "gs://your-bucket-name/staging"
+  # Training settings
+  training:
+    # Default machine type for training
+    machine_type: "n1-standard-4"
+    # GPU accelerator
+    accelerator:
+      type: "NVIDIA_TESLA_T4"
+      count: 1
+    # Disk settings
+    disk:
+      type: "pd-ssd"
+      size_gb: 100
+  # Prediction settings  
+  prediction:
+    # Default machine type for prediction endpoints
+    machine_type: "n1-standard-2"
+    # Min/max replica counts
+    min_replicas: 1
+    max_replicas: 3
+    # Traffic split for A/B testing
+    traffic_split:
+      model_a: 80
+      model_b: 20
+
+# Storage Settings
+storage:
+  # Data storage
+  data_bucket: "gs://your-bucket-name/data"
+  # Model artifacts
+  model_bucket: "gs://your-bucket-name/models"
+  # Temporary files
+  temp_bucket: "gs://your-bucket-name/temp"
+  # Logs
+  logs_bucket: "gs://your-bucket-name/logs"
+
+# BigQuery Settings
+bigquery:
+  # Default dataset
+  dataset_id: "vertex_ai_dataset"
+  # Default table
+  table_id: "training_data"
+  # Location
+  location: "US"
+
+# Authentication Settings
+authentication:
+  # Service account for Vertex AI
+  service_account: "vertex-ai-sa@your-project-id.iam.gserviceaccount.com"
+  # Key file path (for local development)
+  key_file: "./credentials/service-account-key.json"
+  # Use Application Default Credentials
+  use_adc: true
+
+# Logging and Monitoring
+logging:
+  # Log level: DEBUG, INFO, WARNING, ERROR, CRITICAL
+  level: "INFO"
+  # Log format
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  # Log to file
+  file:
+    enabled: true
+    path: "./logs/vertex_ai.log"
+  # Log to Cloud Logging
+  cloud_logging:
+    enabled: true
+
+# Monitoring
+monitoring:
+  # Enable Cloud Monitoring
+  enabled: true
+  # Metrics collection interval (seconds)
+  interval: 60
+  # Alert thresholds
+  alerts:
+    prediction_latency_ms: 1000
+    error_rate_percent: 5
+    cpu_utilization_percent: 80
+
+# Model Settings
+model:
+  # Model versioning
+  version: "v1"
+  # Model display name
+  display_name: "fundamentals-model"
+  # Model description
+  description: "Model created for Vertex AI Fundamentals"
+  # Labels
+  labels:
+    environment: "development"
+    team: "ml-engineering"
+    project: "vertex-ai-mastery"
+
+# Training Data Settings
+data:
+  # Train/val/test split ratios
+  split_ratios:
+    train: 0.7
+    validation: 0.15
+    test: 0.15
+  # Data preprocessing
+  preprocessing:
+    normalize: true
+    handle_missing: "mean"  # Options: mean, median, drop, fill_zero
+    encoding:
+      categorical: "one_hot"  # Options: one_hot, label, target
+  # Feature engineering
+  features:
+    include_all: false
+    selected_features: []
+    exclude_features: []
+
+# Hyperparameter Tuning Settings
+hyperparameter_tuning:
+  # Enable hyperparameter tuning
+  enabled: false
+  # Tuning algorithm
+  algorithm: "RANDOM_SEARCH"  # Options: RANDOM_SEARCH, GRID_SEARCH, BAYESIAN
+  # Max trials
+  max_trials: 20
+  # Parallel trials
+  parallel_trials: 5
+  # Max failed trials
+  max_failed_trials: 3
+  # Parameters to tune
+  parameters:
+    learning_rate:
+      type: "double"
+      min: 0.001
+      max: 0.1
+      scale: "log"
+    batch_size:
+      type: "discrete"
+      values: [16, 32, 64, 128]
+    num_layers:
+      type: "integer"
+      min: 2
+      max: 5
+
+# AutoML Settings
+automl:
+  # Budget hours
+  budget_hours: 1
+  # Optimization objective
+  optimization_objective: "maximize-au-prc"
+  # Column specs (for tabular data)
+  column_specs:
+    target_column: "label"
+    weight_column: null
+  # Early stopping
+  disable_early_stopping: false
+
+# Pipeline Settings
+pipeline:
+  # Pipeline root (for artifacts)
+  root: "gs://your-bucket-name/pipeline_root"
+  # Enable caching
+  enable_caching: true
+  # Parallelism
+  max_parallel_tasks: 10
+  # Pipeline display name
+  display_name: "fundamentals-pipeline"
+
+# Experiment Tracking
+experiments:
+  # Enable experiment tracking
+  enabled: true
+  # Experiment name
+  name: "vertex-ai-fundamentals"
+  # Track metrics
+  track_metrics: true
+  # Track parameters
+  track_parameters: true
+  # Track artifacts
+  track_artifacts: true
+
+# Cost Optimization
+cost:
+  # Use preemptible VMs
+  use_preemptible: true
+  # Auto-shutdown idle notebooks (minutes)
+  notebook_idle_shutdown: 30
+  # Budget alert threshold (USD)
+  budget_alert: 100
+  # Spot instances for training
+  use_spot_instances: true
+
+# Security Settings
+security:
+  # VPC network
+  network: "projects/your-project-id/global/networks/default"
+  # Subnet
+  subnet: "projects/your-project-id/regions/us-central1/subnetworks/default"
+  # Encryption
+  encryption:
+    kms_key: null  # Optional CMEK key
+  # Private endpoints
+  private_endpoints:
+    enabled: false
+
+# Notification Settings
+notifications:
+  # Email notifications
+  email:
+    enabled: false
+    recipients:
+      - "team@example.com"
+  # Slack notifications
+  slack:
+    enabled: false
+    webhook_url: "https://hooks.slack.com/services/YOUR/WEBHOOK/URL"
+  # PubSub notifications
+  pubsub:
+    enabled: false
+    topic: "projects/your-project-id/topics/vertex-ai-notifications"
+
+# Development Settings
+development:
+  # Debug mode
+  debug: false
+  # Verbose output
+  verbose: true
+  # Dry run (don't execute, just print)
+  dry_run: false
+  # Random seed for reproducibility
+  random_seed: 42
