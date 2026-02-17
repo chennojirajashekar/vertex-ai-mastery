@@ -1,0 +1,15 @@
+# Vertex AI Core Concepts - Python Dependencies
+
+# Core Google Cloud packages
+google-cloud-aiplatform>=1.40.0
+google-cloud-iam>=2.12.0
+google-cloud-resource-manager>=1.10.0
+google-auth>=2.20.0
+
+# IAM and security
+google-cloud-iam-admin-v1>=1.0.0
+
+# Data and utilities
+pandas>=2.0.0
+numpy>=1.24.0
+python-dotenv>=1.0.0
